@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Covid-19</a>
+  <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#navbar"
+    aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed" aria-controls="navbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbar" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/summary">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/summary">Summary</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/details">Details</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,21 @@
+<mat-card-content>
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>public</mat-icon> <span class="ml-1">Global Summary</span>
+      </ng-template>
+      <mat-card class="global-card">
+        <app-global-summary></app-global-summary>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>public</mat-icon> <span class="ml-1">Countries Summary</span>
+      </ng-template>
+      <mat-card class="countries-card">
+        <app-countries-summary></app-countries-summary>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card-content>

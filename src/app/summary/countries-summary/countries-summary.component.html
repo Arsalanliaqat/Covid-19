@@ -1,0 +1,63 @@
+<div *ngIf="!countriesSummary && !errorResult" class="text-center m-auto col-lg-1">
+  <mat-spinner color="{{toggleColor}}"></mat-spinner>
+</div>
+<div *ngIf="errorResult" class="m-auto col-lg-3">
+  <span class="font-weight-bold text-danger">Error Code:</span> {{errorResult.status}} <br>
+  <span class="font-weight-bold text-danger">Error Title:</span> {{errorResult.statusText}} <br>
+  <span class="font-weight-bold text-danger">Error Details:</span> {{errorResult.error}} <br>
+  <span class="font-weight-bold text-danger">Error Message:</span> {{errorResult.message}} <br>
+  <div class="m-2">
+    <button mat-raised-button color="{{toggleColor.value}}" (click)="refreshData()">Refresh</button>
+    <mat-button-toggle-group name="buttonColor" #toggleColor="matButtonToggleGroup" aria-label="Button Color">
+      <mat-button-toggle value="warn">Red</mat-button-toggle>
+      <mat-button-toggle value="primary">Plum</mat-button-toggle>
+      <mat-button-toggle value="accent">Pink</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+<div class="text-center" *ngIf="countriesSummary table-responsive">
+  <div class="m-2">
+    <button mat-raised-button color="{{toggleColor.value}}" (click)="refreshData()">Refresh</button>
+    <mat-button-toggle-group name="buttonColor" #toggleColor="matButtonToggleGroup" aria-label="Button Color">
+      <mat-button-toggle value="warn">Red</mat-button-toggle>
+      <mat-button-toggle value="primary">Plum</mat-button-toggle>
+      <mat-button-toggle value="accent">Pink</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <h1>Summary: Countries<mat-icon matBadge="186" matBadgeOverlap="true" matBadgeColor="warn"></mat-icon>
+  </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" class="text-left">Country</th>
+        <th scope="col">Country Code</th>
+        <th scope="col">Slug</th>
+        <th scope="col">New Confirmed</th>
+        <th scope="col">Total Confirmed</th>
+        <th scope="col">New Deaths</th>
+        <th scope="col">Total Deaths</th>
+        <th scope="col">New Recovered</th>
+        <th scope="col">Total Recovered</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of countriesSummary; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td class="text-left"><img [src]="'https://www.countryflags.io/' + country.CountryCode + '/flat/64.png'"
+            class="mr-2" style="width: 20px">{{ country.Country }}</td>
+        <td>{{country.CountryCode}}</td>
+        <td>{{country.Slug}}</td>
+        <td>{{country.NewConfirmed}}</td>
+        <td>{{country.TotalConfirmed}}</td>
+        <td>{{country.NewDeaths}}</td>
+        <td>{{country.TotalDeaths}}</td>
+        <td>{{country.NewRecovered}}</td>
+        <td>{{country.TotalRecovered}}</td>
+        <td>{{country.Date}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

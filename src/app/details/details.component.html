@@ -1,0 +1,84 @@
+<mat-drawer-container class="sidebar-container" autosize>
+  <mat-drawer mode="side" opened>
+    <mat-selection-list #countries [(ngModel)]="selectedCountry" (ngModelChange)="getCountryData($event)"
+      [multiple]="false">
+      <mat-list-option *ngIf="!countriesList">
+        <mat-spinner color="{{toggleColor}}"></mat-spinner>
+      </mat-list-option>
+      <mat-list-option *ngFor="let country of countriesList" [value]="country.Slug">
+        <img matListAvatar [src]="'https://www.countryflags.io/'+country.ISO2+'/flat/64.png'">{{country.Country}}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-drawer>
+
+  <div *ngIf="targetCountry && !confirmedCases && !deadthCases && !recoveredCases && !errorCountryDetails"
+    class="text-center m-auto col-lg-1">
+    <mat-spinner color="{{toggleColor}}"></mat-spinner>
+  </div>
+
+  <div *ngIf="!targetCountry; else countryData" class="text-center m-4">Select country</div>
+
+  <ng-template #countryData>
+    <div *ngIf="errorCountryDetails; else detailedHistory" class="m-auto col-lg-6 text-center">
+      <span class="font-weight-bold text-danger">Error Code:</span> {{errorCountryDetails.status}} <br>
+      <span class="font-weight-bold text-danger">Error Title:</span> {{errorCountryDetails.statusText}} <br>
+      <span class="font-weight-bold text-danger">Error Details:</span> {{errorCountryDetails.error}} <br>
+      <span class="font-weight-bold text-danger">Error Message:</span> {{errorCountryDetails.message}} <br>
+      <div class="m-2">
+        <button mat-raised-button color="{{toggleColor.value}}" (click)="getCountryData()">Refresh</button>
+        <mat-button-toggle-group name="buttonColor" #toggleColor="matButtonToggleGroup" aria-label="Button Color">
+          <mat-button-toggle value="warn">Red</mat-button-toggle>
+          <mat-button-toggle value="primary">Plum</mat-button-toggle>
+          <mat-button-toggle value="accent">Pink</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+
+    <ng-template #detailedHistory>
+      <div *ngIf="!confirmedCases.length || !deadthCases.length || !recoveredCases.length; else result"
+        class="text-center m-4">
+        No Record Found!
+      </div>
+
+      <ng-template #result>
+        <div class="m-2 text-center">
+          <button mat-raised-button color="{{toggleColor.value}}" (click)="getCountryData()">Refresh</button>
+          <mat-button-toggle-group name="buttonColor" #toggleColor="matButtonToggleGroup" aria-label="Button Color">
+            <mat-button-toggle value="warn">Red</mat-button-toggle>
+            <mat-button-toggle value="primary">Plum</mat-button-toggle>
+            <mat-button-toggle value="accent">Pink</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col" class="text-left">Country</th>
+                <th scope="col">Lat</th>
+                <th scope="col">Lon</th>
+                <th scope="col">Confirmed</th>
+                <th scope="col">Deadths</th>
+                <th scope="col">Recovered</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let case of confirmedCases; index as i">
+                <td class="text-left"><img [src]="'https://www.countryflags.io/' + case.CountryCode + '/flat/64.png'"
+                    class="mr-2" style="width: 20px">{{ case.Country }}</td>
+                <td>{{case.Lat}}</td>
+                <td>{{case.Lon}}</td>
+                <td>{{case.Cases}}</td>
+                <td>{{deadthCases[i].Cases}}</td>
+                <td>{{recoveredCases[i].Cases}}</td>
+                <td>{{case.Date}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-template>
+
+</mat-drawer-container>
