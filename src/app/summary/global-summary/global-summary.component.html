@@ -1,0 +1,61 @@
+<div *ngIf="!globalSummary && !errorResult" class="text-center m-auto col-lg-1">
+  <mat-spinner color="{{toggleColor}}"></mat-spinner>
+</div>
+<div *ngIf="errorResult" class="m-auto col-lg-3">
+  <span class="font-weight-bold text-danger">Error Code:</span> {{errorResult.status}} <br>
+  <span class="font-weight-bold text-danger">Error Title:</span> {{errorResult.statusText}} <br>
+  <span class="font-weight-bold text-danger">Error Details:</span> {{errorResult.error}} <br>
+  <span class="font-weight-bold text-danger">Error Message:</span> {{errorResult.message}} <br>
+  <div class="m-2">
+    <button mat-raised-button color="{{toggleColor.value}}" (click)="refreshData()">Refresh</button>
+    <mat-button-toggle-group name="buttonColor" #toggleColor="matButtonToggleGroup" aria-label="Button Color">
+      <mat-button-toggle value="warn">Red</mat-button-toggle>
+      <mat-button-toggle value="primary">Plum</mat-button-toggle>
+      <mat-button-toggle value="accent">Pink</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+<div *ngIf="globalSummary" class="text-center table-responsive">
+  <div class="m-2">
+    <button mat-raised-button color="{{toggleColor.value}}" (click)="refreshData()">Refresh</button>
+    <mat-button-toggle-group name="buttonColor" #toggleColor="matButtonToggleGroup" aria-label="Button Color">
+      <mat-button-toggle value="warn">Red</mat-button-toggle>
+      <mat-button-toggle value="primary">Plum</mat-button-toggle>
+      <mat-button-toggle value="accent">Pink</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <table class="table table-striped table-bordered col-lg-2 col-md-3 m-auto">
+    <thead class="thead-dark">
+      <tr class="text-center">
+        <th colspan="2" scope="col">Global Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>New Confirmed</td>
+        <td>{{globalSummary.NewConfirmed}}</td>
+      </tr>
+      <tr>
+        <td>Total Confirmed</td>
+        <td>{{globalSummary.TotalConfirmed}}</td>
+      </tr>
+      <tr>
+        <td>New Deatds</td>
+        <td>{{globalSummary.NewDeaths}}</td>
+      </tr>
+      <tr>
+        <td>Total Deatds</td>
+        <td>{{globalSummary.TotalDeaths}}</td>
+      </tr>
+      <tr>
+        <td>New Recovered</td>
+        <td>{{globalSummary.NewRecovered}}</td>
+      </tr>
+      <tr>
+        <td>Total Recovered</td>
+        <td>{{globalSummary.TotalRecovered}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
